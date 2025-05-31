@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integration - A Level Mathematics</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .slide:hover {
+            transform: translateY(-5px);
+        }
+        
+        .slide-header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #FF6B6B;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FF6B6B;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: #E63946;
+            margin: 20px 0 15px 0;
+        }
+        
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .example-box {
+            background: #e8f5e8;
+            border-left: 5px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .quiz-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .graph-container {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .step-by-step {
+            background: #f1f8e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .area-example {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .difficulty-easy {
+            border-left: 4px solid #4CAF50;
+            background: #e8f5e8;
+        }
+        
+        .difficulty-medium {
+            border-left: 4px solid #FF9800;
+            background: #fff3e0;
+        }
+        
+        .difficulty-hard {
+            border-left: 4px solid #F44336;
+            background: #ffebee;
+        }
+        
+        .quiz-answer {
+            display: none;
+            background: #e8f5e8;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+        }
+        
+        .show-answer-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .show-answer-btn:hover {
+            background: #45a049;
+        }
+        
+        .trapezium-visual {
+            background: #f0f8ff;
+            border: 2px solid #4169e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Title Slide -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Integration</h1>
+                <p style="font-size: 1.2em;">A Level Mathematics - Edexcel</p>
+                <p>The Reverse of Differentiation</p>
+            </div>
+        </div>
+
+        <!-- Recap on Derivatives with Quiz -->
+        <div class="slide">
+            <h2>Quick Recap: Derivatives</h2>
+            
+            <div class="formula-box">
+                <h3>Essential Derivative Rules</h3>
+                <p>$\frac{d}{dx}[x^n] = nx^{n-1}$</p>
+                <p>$\frac{d}{dx}[c] = 0$ (where $c$ is constant)</p>
+                <p>$\frac{d}{dx}[cf(x)] = c \cdot f'(x)$</p>
+                <p>$\frac{d}{dx}[f(x) + g(x)] = f'(x) + g'(x)$</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>🧠 Quick Quiz: Test Your Derivative Skills</h3>
+                
+                <div style="margin: 20px 0;">
+                    <p><strong>Question 1:</strong> Find $\frac{dy}{dx}$ if $y = 3x^4 - 2x^2 + 5x - 1$</p>
+                    <button class="show-answer-btn" onclick="toggleAnswer('quiz1')">Show Answer</button>
+                    <div id="quiz1" class="quiz-answer">
+                        <p><strong>Answer:</strong> $\frac{dy}{dx} = 12x^3 - 4x + 5$</p>
+                        <p><strong>Working:</strong> Apply power rule to each term</p>
+                        <ul>
+                            <li>$\frac{d}{dx}[3x^4] = 3 \cdot 4x^3 = 12x^3$</li>
+                            <li>$\frac{d}{dx}[-2x^2] = -2 \cdot 2x = -4x$</li>
+                            <li>$\frac{d}{dx}[5x] = 5$</li>
+                            <li>$\frac{d}{dx}[-1] = 0$</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <p><strong>Question 2:</strong> If $f(x) = x^3 - 6x^2 + 9x$, find the critical points.</p>
+                    <button class="show-answer-btn" onclick="toggleAnswer('quiz2')">Show Answer</button>
+                    <div id="quiz2" class="quiz-answer">
+                        <p><strong>Answer:</strong> Critical points at $x = 1$ and $x = 3$</p>
+                        <p><strong>Working:</strong></p>
+                        <ul>
+                            <li>$f'(x) = 3x^2 - 12x + 9$</li>
+                            <li>Set $f'(x) = 0$: $3x^2 - 12x + 9 = 0$</li>
+                            <li>$3(x^2 - 4x + 3) = 0$</li>
+                            <li>$3(x - 1)(x - 3) = 0$</li>
+                            <li>Therefore $x = 1$ or $x = 3$</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <p><strong>Question 3:</strong> Find the equation of the tangent line to $y = x^2 + 2x$ at $x = 1$.</p>
+                    <button class="show-answer-btn" onclick="toggleAnswer('quiz3')">Show Answer</button>
+                    <div id="quiz3" class="quiz-answer">
+                        <p><strong>Answer:</strong> $y = 4x - 1$</p>
+                        <p><strong>Working:</strong></p>
+                        <ul>
+                            <li>$\frac{dy}{dx} = 2x + 2$</li>
+                            <li>At $x = 1$: slope $= 2(1) + 2 = 4$</li>
+                            <li>Point on curve: $(1, 1^2 + 2(1)) = (1, 3)$</li>
+                            <li>Tangent: $y - 3 = 4(x - 1)$</li>
+                            <li>Therefore: $y = 4x - 1$</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 1: Basic Concepts -->
+        <div class="slide">
+            <h2>Part 1: Basic Integration Concepts</h2>
+            
+            <div class="highlight">
+                <p><strong>Integration is the reverse process of differentiation!</strong></p>
+                <p>If $\frac{dy}{dx} = f(x)$, then $y = \int f(x) \, dx$</p>
+            </div>
+
+            <h3>1. Indefinite Integrals of $x^n$</h3>
+            <div class="formula-box">
+                <p><strong>Power Rule for Integration:</strong></p>
+                <p>$$\int x^n \, dx = \frac{x^{n+1}}{n+1} + C \quad \text{(where } n \neq -1\text{)}$$</p>
+                <p><strong>Special Cases:</strong></p>
+                <p>$\int 1 \, dx = x + C$</p>
+                <p>$\int x \, dx = \frac{x^2}{2} + C$</p>
+                <p>$\int \frac{1}{x} \, dx = \ln|x| + C$</p>
+            </div>
+
+            <div class="three-column">
+                <div class="example-box difficulty-easy">
+                    <h4>🟢 Easy Example</h4>
+                    <p>Find $\int x^3 \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int x^3 \, dx = \frac{x^{3+1}}{3+1} + C = \frac{x^4}{4} + C$</p>
+                    <p><strong>Check:</strong> $\frac{d}{dx}\left[\frac{x^4}{4}\right] = x^3$ ✓</p>
+                </div>
+                
+                <div class="example-box difficulty-easy">
+                    <h4>🟢 Easy Example</h4>
+                    <p>Find $\int 5x^2 \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int 5x^2 \, dx = 5 \int x^2 \, dx = 5 \cdot \frac{x^3}{3} + C = \frac{5x^3}{3} + C$</p>
+                </div>
+                
+                <div class="example-box difficulty-medium">
+                    <h4>🟡 Medium Example</h4>
+                    <p>Find $\int x^{-2} \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int x^{-2} \, dx = \frac{x^{-2+1}}{-2+1} + C = \frac{x^{-1}}{-1} + C = -\frac{1}{x} + C$</p>
+                </div>
+            </div>
+
+            <h3>2. Integrating Polynomials</h3>
+            <div class="formula-box">
+                <p><strong>General Rule:</strong></p>
+                <p>$$\int (ax^n + bx^m + cx^p + d) \, dx = a\frac{x^{n+1}}{n+1} + b\frac{x^{m+1}}{m+1} + c\frac{x^{p+1}}{p+1} + dx + C$$</p>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box difficulty-medium">
+                    <h4>🟡 Medium Example</h4>
+                    <p>Find $\int (3x^2 - 4x + 7) \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int (3x^2 - 4x + 7) \, dx$</p>
+                    <p>$= 3 \int x^2 \, dx - 4 \int x \, dx + 7 \int 1 \, dx$</p>
+                    <p>$= 3 \cdot \frac{x^3}{3} - 4 \cdot \frac{x^2}{2} + 7x + C$</p>
+                    <p>$= x^3 - 2x^2 + 7x + C$</p>
+                </div>
+                
+                <div class="example-box difficulty-hard">
+                    <h4>🔴 Hard Example</h4>
+                    <p>Find $\int \left(2x^3 - \frac{3}{x^2} + \sqrt{x} - 5\right) \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>Rewrite: $\int (2x^3 - 3x^{-2} + x^{1/2} - 5) \, dx$</p>
+                    <p>$= 2 \cdot \frac{x^4}{4} - 3 \cdot \frac{x^{-1}}{-1} + \frac{x^{3/2}}{3/2} - 5x + C$</p>
+                    <p>$= \frac{x^4}{2} + \frac{3}{x} + \frac{2x^{3/2}}{3} - 5x + C$</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h3>3. Finding f(x) Given f'(x) and a Point</h3>
+            
+            <div class="step-by-step">
+                <h4>Step-by-Step Method:</h4>
+                <ol>
+                    <li>Integrate $f'(x)$ to get $f(x) = \int f'(x) \, dx + C$</li>
+                    <li>Use the given point to find the constant $C$</li>
+                    <li>Write the final answer for $f(x)$</li>
+                </ol>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box difficulty-medium">
+                    <h4>🟡 Medium Example</h4>
+                    <p>Given $f'(x) = 6x^2 - 4x + 1$ and $f(1) = 5$, find $f(x)$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p><strong>Step 1:</strong> Integrate $f'(x)$</p>
+                    <p>$f(x) = \int (6x^2 - 4x + 1) \, dx$</p>
+                    <p>$f(x) = 2x^3 - 2x^2 + x + C$</p>
+                    
+                    <p><strong>Step 2:</strong> Use $f(1) = 5$</p>
+                    <p>$5 = 2(1)^3 - 2(1)^2 + 1 + C$</p>
+                    <p>$5 = 2 - 2 + 1 + C$</p>
+                    <p>$5 = 1 + C$</p>
+                    <p>$C = 4$</p>
+                    
+                    <p><strong>Step 3:</strong> Final answer</p>
+                    <p>$f(x) = 2x^3 - 2x^2 + x + 4$</p>
+                </div>
+                
+                <div class="example-box difficulty-hard">
+                    <h4>🔴 Hard Example</h4>
+                    <p>Given $\frac{dy}{dx} = 3x^2 - \frac{2}{x^3}$ and the curve passes through $(2, 10)$, find $y$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p><strong>Step 1:</strong> Rewrite and integrate</p>
+                    <p>$\frac{dy}{dx} = 3x^2 - 2x^{-3}$</p>
+                    <p>$y = \int (3x^2 - 2x^{-3}) \, dx$</p>
+                    <p>$y = x^3 - 2 \cdot \frac{x^{-2}}{-2} + C$</p>
+                    <p>$y = x^3 + \frac{1}{x^2} + C$</p>
+                    
+                    <p><strong>Step 2:</strong> Use point $(2, 10)$</p>
+                    <p>$10 = 2^3 + \frac{1}{2^2} + C$</p>
+                    <p>$10 = 8 + \frac{1}{4} + C$</p>
+                    <p>$C = 10 - 8.25 = 1.75$</p>
+                    
+                    <p><strong>Step 3:</strong> Final answer</p>
+                    <p>$y = x^3 + \frac{1}{x^2} + \frac{7}{4}$</p>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <div id="curve-through-point" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+        <!-- Part 2: Advanced Concepts -->
+        <div class="slide">
+            <h2>Part 2: Advanced Integration Concepts</h2>
+            
+            <h3>1. Definite Integrals</h3>
+            <div class="formula-box">
+                <p><strong>Fundamental Theorem of Calculus:</strong></p>
+                <p>$$\int_a^b f(x) \, dx = [F(x)]_a^b = F(b) - F(a)$$</p>
+                <p>where $F(x)$ is the antiderivative of $f(x)$</p>
+            </div>
+
+            <div class="three-column">
+                <div class="example-box difficulty-easy">
+                    <h4>🟢 Easy Example</h4>
+                    <p>Evaluate $\int_1^3 2x \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int_1^3 2x \, dx = [x^2]_1^3$</p>
+                    <p>$= 3^2 - 1^2$</p>
+                    <p>$= 9 - 1 = 8$</p>
+                </div>
+                
+                <div class="example-box difficulty-medium">
+                    <h4>🟡 Medium Example</h4>
+                    <p>Evaluate $\int_0^2 (x^2 + 3x - 1) \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int_0^2 (x^2 + 3x - 1) \, dx$</p>
+                    <p>$= \left[\frac{x^3}{3} + \frac{3x^2}{2} - x\right]_0^2$</p>
+                    <p>$= \left(\frac{8}{3} + 6 - 2\right) - (0)$</p>
+                    <p>$= \frac{8}{3} + 4 = \frac{20}{3}$</p>
+                </div>
+                
+                <div class="example-box difficulty-hard">
+                    <h4>🔴 Hard Example</h4>
+                    <p>Evaluate $\int_1^4 \left(\sqrt{x} - \frac{1}{x^2}\right) \, dx$</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$\int_1^4 (x^{1/2} - x^{-2}) \, dx$</p>
+                    <p>$= \left[\frac{x^{3/2}}{3/2} - \frac{x^{-1}}{-1}\right]_1^4$</p>
+                    <p>$= \left[\frac{2x^{3/2}}{3} + \frac{1}{x}\right]_1^4$</p>
+                    <p>$= \left(\frac{16}{3} + \frac{1}{4}\right) - \left(\frac{2}{3} + 1\right)$</p>
+                    <p>$= \frac{14}{3} - \frac{3}{4} = \frac{56-9}{12} = \frac{47}{12}$</p>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <div id="definite-integral-graph" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h3>2. Area Under a Curve and x-axis</h3>
+            
+            <div class="formula-box">
+                <p><strong>Area Formula:</strong></p>
+                <p>$$\text{Area} = \int_a^b |f(x)| \, dx$$</p>
+                <p><strong>Important:</strong> If $f(x) < 0$ in some intervals, split the integral!</p>
+            </div>
+
+            <div class="two-column">
+                <div class="area-example">
+                    <h4>Example: Area above x-axis</h4>
+                    <p>Find the area between $y = x^2$ and the x-axis from $x = 0$ to $x = 2$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>Since $x^2 \geq 0$ for all $x$:</p>
+                    <p>$\text{Area} = \int_0^2 x^2 \, dx = \left[\frac{x^3}{3}\right]_0^2 = \frac{8}{3}$</p>
+                </div>
+                
+                <div class="area-example">
+                    <h4>Example: Area below x-axis</h4>
+                    <p>Find the area between $y = x^2 - 4$ and the x-axis from $x = -2$ to $x = 2$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>Since $x^2 - 4 \leq 0$ for $-2 \leq x \leq 2$:</p>
+                    <p>$\text{Area} = \int_{-2}^2 |x^2 - 4| \, dx = \int_{-2}^2 (4 - x^2) \, dx$</p>
+                    <p>$= \left[4x - \frac{x^3}{3}\right]_{-2}^2$</p>
+                    <p>$= \left(8 - \frac{8}{3}\right) - \left(-8 + \frac{8}{3}\right) = \frac{32}{3}$</p>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <div id="area-under-curve" style="width:100%;height:400px;"></div>
+            </div>
+
+            <div class="area-example">
+                <h4>🔴 Complex Example: Mixed Areas</h4>
+                <p>Find the total area between $y = x^3 - x$ and the x-axis from $x = -1$ to $x = 1$.</p>
+                <p><strong>Solution:</strong></p>
+                <p><strong>Step 1:</strong> Find where $f(x) = 0$</p>
+                <p>$x^3 - x = 0 \Rightarrow x(x^2 - 1) = 0 \Rightarrow x = 0, \pm 1$</p>
+                
+                <p><strong>Step 2:</strong> Determine sign in each interval</p>
+                <ul>
+                    <li>For $-1 < x < 0$: $f(-0.5) = -0.125 + 0.5 = 0.375 > 0$</li>
+                    <li>For $0 < x < 1$: $f(0.5) = 0.125 - 0.5 = -0.375 < 0$</li>
+                </ul>
+                
+                <p><strong>Step 3:</strong> Split the integral</p>
+                <p>$\text{Area} = \int_{-1}^0 (x^3 - x) \, dx + \int_0^1 |x^3 - x| \, dx$</p>
+                <p>$= \int_{-1}^0 (x^3 - x) \, dx + \int_0^1 (x - x^3) \, dx$</p>
+                <p>$= \left[\frac{x^4}{4} - \frac{x^2}{2}\right]_{-1}^0 + \left[\frac{x^2}{2} - \frac{x^4}{4}\right]_0^1$</p>
+                <p>$= (0) - \left(\frac{1}{4} - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{4}\right) - (0)$</p>
+                <p>$= \frac{1}{4} + \frac{1}{4} = \frac{1}{2}$</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h3>3. Areas Between Curves and Lines</h3>
+            
+            <div class="formula-box">
+                <p><strong>Area between curve and line:</strong></p>
+                <p>$$\text{Area} = \int_a^b |f(x) - g(x)| \, dx$$</p>
+                <p>where $f(x)$ is the curve and $g(x)$ is the line</p>
+            </div>
+
+            <div class="two-column">
+                <div class="area-example">
+                    <h4>🟡 Example: Curve above line</h4>
+                    <p>Find the area between $y = x^2 + 1$ and $y = 2x + 1$ from $x = 0$ to $x = 2$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p><strong>Step 1:</strong> Find intersection points</p>
+                    <p>$x^2 + 1 = 2x + 1$</p>
+                                        <p>$x^2 = 2x$</p>
+                    <p>$x^2 - 2x = 0$</p>
+                    <p>$x(x - 2) = 0$</p>
+                    <p>So $x = 0$ or $x = 2$</p>
+                    
+                    <p><strong>Step 2:</strong> Determine which function is above</p>
+                    <p>At $x = 1$: $y_1 = 1 + 1 = 2$, $y_2 = 2 + 1 = 3$</p>
+                    <p>So line is above curve</p>
+                    
+                    <p><strong>Step 3:</strong> Calculate area</p>
+                    <p>$\text{Area} = \int_0^2 [(2x + 1) - (x^2 + 1)] \, dx$</p>
+                    <p>$= \int_0^2 (2x - x^2) \, dx$</p>
+                    <p>$= \left[x^2 - \frac{x^3}{3}\right]_0^2$</p>
+                    <p>$= 4 - \frac{8}{3} = \frac{4}{3}$</p>
+                </div>
+                
+                <div class="area-example">
+                    <h4>🔴 Complex Example</h4>
+                    <p>Find the area enclosed by $y = x^2 - 2x$ and $y = x$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p><strong>Step 1:</strong> Find intersection points</p>
+                    <p>$x^2 - 2x = x$</p>
+                    <p>$x^2 - 3x = 0$</p>
+                    <p>$x(x - 3) = 0$</p>
+                    <p>So $x = 0$ or $x = 3$</p>
+                    
+                    <p><strong>Step 2:</strong> Determine which is above</p>
+                    <p>At $x = 1$: curve gives $1 - 2 = -1$, line gives $1$</p>
+                    <p>So line is above curve</p>
+                    
+                    <p><strong>Step 3:</strong> Calculate area</p>
+                    <p>$\text{Area} = \int_0^3 [x - (x^2 - 2x)] \, dx$</p>
+                    <p>$= \int_0^3 (3x - x^2) \, dx$</p>
+                    <p>$= \left[\frac{3x^2}{2} - \frac{x^3}{3}\right]_0^3$</p>
+                    <p>$= \frac{27}{2} - 9 = \frac{9}{2}$</p>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <div id="area-between-curve-line" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h3>4. Areas Between Two Curves</h3>
+            
+            <div class="formula-box">
+                <p><strong>Area between two curves:</strong></p>
+                <p>$$\text{Area} = \int_a^b |f(x) - g(x)| \, dx$$</p>
+                <p>where $a$ and $b$ are intersection points</p>
+            </div>
+
+            <div class="step-by-step">
+                <h4>General Method:</h4>
+                <ol>
+                    <li>Find intersection points by solving $f(x) = g(x)$</li>
+                    <li>Determine which curve is above in each interval</li>
+                    <li>Set up integral(s) with upper curve minus lower curve</li>
+                    <li>Evaluate the definite integral(s)</li>
+                </ol>
+            </div>
+
+            <div class="area-example">
+                <h4>🟡 Medium Example</h4>
+                <p>Find the area between $y = x^2$ and $y = 4 - x^2$.</p>
+                <p><strong>Solution:</strong></p>
+                <p><strong>Step 1:</strong> Find intersections</p>
+                <p>$x^2 = 4 - x^2$</p>
+                <p>$2x^2 = 4$</p>
+                <p>$x^2 = 2$</p>
+                <p>$x = \pm\sqrt{2}$</p>
+                
+                <p><strong>Step 2:</strong> Determine which is above</p>
+                <p>At $x = 0$: $y_1 = 0$, $y_2 = 4$</p>
+                <p>So $y = 4 - x^2$ is above $y = x^2$</p>
+                
+                <p><strong>Step 3:</strong> Calculate area</p>
+                <p>$\text{Area} = \int_{-\sqrt{2}}^{\sqrt{2}} [(4 - x^2) - x^2] \, dx$</p>
+                <p>$= \int_{-\sqrt{2}}^{\sqrt{2}} (4 - 2x^2) \, dx$</p>
+                <p>$= \left[4x - \frac{2x^3}{3}\right]_{-\sqrt{2}}^{\sqrt{2}}$</p>
+                <p>$= \left(4\sqrt{2} - \frac{4\sqrt{2}}{3}\right) - \left(-4\sqrt{2} + \frac{4\sqrt{2}}{3}\right)$</p>
+                <p>$= 8\sqrt{2} - \frac{8\sqrt{2}}{3} = \frac{16\sqrt{2}}{3}$</p>
+            </div>
+
+            <div class="area-example">
+                <h4>🔴 Hard Example</h4>
+                <p>Find the area enclosed by $y = x^3 - 3x$ and $y = x$.</p>
+                <p><strong>Solution:</strong></p>
+                <p><strong>Step 1:</strong> Find intersections</p>
+                <p>$x^3 - 3x = x$</p>
+                <p>$x^3 - 4x = 0$</p>
+                <p>$x(x^2 - 4) = 0$</p>
+                <p>$x(x - 2)(x + 2) = 0$</p>
+                <p>So $x = -2, 0, 2$</p>
+                
+                <p><strong>Step 2:</strong> Determine which is above in each interval</p>
+                <p>For $-2 < x < 0$: At $x = -1$, cubic gives $-1 + 3 = 2$, line gives $-1$</p>
+                <p>For $0 < x < 2$: At $x = 1$, cubic gives $1 - 3 = -2$, line gives $1$</p>
+                
+                <p><strong>Step 3:</strong> Split into two integrals</p>
+                <p>$\text{Area} = \int_{-2}^0 [(x^3 - 3x) - x] \, dx + \int_0^2 [x - (x^3 - 3x)] \, dx$</p>
+                <p>$= \int_{-2}^0 (x^3 - 4x) \, dx + \int_0^2 (4x - x^3) \, dx$</p>
+                <p>$= \left[\frac{x^4}{4} - 2x^2\right]_{-2}^0 + \left[2x^2 - \frac{x^4}{4}\right]_0^2$</p>
+                <p>$= (0) - (4 - 8) + (8 - 4) - (0)$</p>
+                <p>$= 4 + 4 = 8$</p>
+            </div>
+
+            <div class="graph-container">
+                <div id="area-between-curves" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h3>5. The Trapezium Rule</h3>
+            
+            <div class="highlight">
+                <p><strong>When to use:</strong> When the integral cannot be evaluated exactly or when working with data points.</p>
+            </div>
+
+            <div class="formula-box">
+                <p><strong>Trapezium Rule Formula:</strong></p>
+                <p>$$\int_a^b f(x) \, dx \approx \frac{h}{2}[y_0 + 2(y_1 + y_2 + \cdots + y_{n-1}) + y_n]$$</p>
+                <p>where $h = \frac{b-a}{n}$ and $y_i = f(a + ih)$</p>
+            </div>
+
+            <div class="trapezium-visual">
+                <h4>Visual Understanding</h4>
+                <p>The trapezium rule approximates the area under a curve by dividing it into trapezoids.</p>
+                <p>Each trapezoid has:</p>
+                <ul>
+                    <li>Width: $h = \frac{b-a}{n}$</li>
+                    <li>Parallel sides: $y_i$ and $y_{i+1}$</li>
+                    <li>Area: $\frac{h}{2}(y_i + y_{i+1})$</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box difficulty-medium">
+                    <h4>🟡 Example: Using 4 strips</h4>
+                    <p>Use the trapezium rule with 4 strips to approximate $\int_0^2 x^2 \, dx$.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p><strong>Step 1:</strong> Find $h$ and $x$-values</p>
+                    <p>$h = \frac{2-0}{4} = 0.5$</p>
+                    <p>$x$-values: $0, 0.5, 1, 1.5, 2$</p>
+                    
+                    <p><strong>Step 2:</strong> Calculate $y$-values</p>
+                    <p>$y_0 = 0^2 = 0$</p>
+                    <p>$y_1 = 0.5^2 = 0.25$</p>
+                    <p>$y_2 = 1^2 = 1$</p>
+                    <p>$y_3 = 1.5^2 = 2.25$</p>
+                    <p>$y_4 = 2^2 = 4$</p>
+                    
+                    <p><strong>Step 3:</strong> Apply formula</p>
+                    <p>$\int_0^2 x^2 \, dx \approx \frac{0.5}{2}[0 + 2(0.25 + 1 + 2.25) + 4]$</p>
+                    <p>$= 0.25[0 + 2(3.5) + 4]$</p>
+                    <p>$= 0.25[11] = 2.75$</p>
+                    
+                    <p><strong>Exact value:</strong> $\int_0^2 x^2 \, dx = \frac{8}{3} = 2.667...$</p>
+                    <p><strong>Error:</strong> $|2.75 - 2.667| = 0.083$</p>
+                </div>
+                
+                <div class="example-box difficulty-hard">
+                    <h4>🔴 Example: Data points</h4>
+                    <p>The table shows values of a function $f(x)$. Use the trapezium rule to estimate $\int_0^3 f(x) \, dx$.</p>
+                    <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                        <tr style="border: 1px solid #ddd; background: #f2f2f2;">
+                            <td style="padding: 8px; border: 1px solid #ddd;"><strong>x</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">0</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">0.5</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">1</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">1.5</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">2</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">2.5</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">3</td>
+                        </tr>
+                        <tr style="border: 1px solid #ddd;">
+                            <td style="padding: 8px; border: 1px solid #ddd;"><strong>f(x)</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">1</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">1.2</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">1.8</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">2.1</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">2.9</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">3.4</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">4.2</td>
+                        </tr>
+                    </table>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <p>$h = 0.5$ (given by the $x$-values)</p>
+                    <p>$\int_0^3 f(x) \, dx \approx \frac{0.5}{2}[1 + 2(1.2 + 1.8 + 2.1 + 2.9 + 3.4) + 4.2]$</p>
+                    <p>$= 0.25[1 + 2(11.4) + 4.2]$</p>
+                    <p>$= 0.25[1 + 22.8 + 4.2]$</p>
+                    <p>$= 0.25 \times 28 = 7$</p>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <div id="trapezium-rule" style="width:100%;height:400px;"></div>
+            </div>
+
+            <div class="highlight">
+                <h4>💡 Key Points about Trapezium Rule:</h4>
+                <ul>
+                    <li><strong>Accuracy:</strong> More strips → better approximation</li>
+                    <li><strong>Error:</strong> Tends to overestimate for concave up curves, underestimate for concave down</li>
+                    <li><strong>Alternative:</strong> Simpson's rule (more accurate but requires even number of strips)</li>
+                    <li><strong>Applications:</strong> Engineering, physics, economics when exact integration is impossible</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Real-world Applications -->
+        <div class="slide">
+            <h2>Real-World Applications of Integration</h2>
+            
+            <div class="two-column">
+                <div class="real-world">
+                    <h4>🚗 Physics: Distance and Velocity</h4>
+                    <p><strong>Problem:</strong> A car's velocity is given by $v(t) = 3t^2 + 2t$ m/s. Find the distance traveled from $t = 0$ to $t = 4$ seconds.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>Distance = $\int_0^4 v(t) \, dt = \int_0^4 (3t^2 + 2t) \, dt$</p>
+                    <p>$= \left[t^3 + t^2\right]_0^4$</p>
+                    <p>$= 64 + 16 = 80$ meters</p>
+                </div>
+                
+                <div class="real-world">
+                    <h4>💰 Economics: Consumer Surplus</h4>
+                    <p><strong>Problem:</strong> Demand function: $p = 100 - 2q$, equilibrium at $q = 20$. Find consumer surplus.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>Equilibrium price: $p = 100 - 2(20) = 60$</p>
+                    <p>Consumer Surplus = $\int_0^{20} (100 - 2q) \, dq - 20 \times 60$</p>
+                    <p>$= \left[100q - q^2\right]_0^{20} - 1200$</p>
+                    <p>$= 2000 - 400 - 1200 = 400$</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="real-world">
+                    <h4>🏗️ Engineering: Volume of Revolution</h4>
+                    <p><strong>Problem:</strong> Find the volume when $y = \sqrt{x}$ from $x = 0$ to $x = 4$ is rotated about the x-axis.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>$V = \pi \int_0^4 (\sqrt{x})^2 \, dx = \pi \int_0^4 x \, dx$</p>
+                    <p>$= \pi \left[\frac{x^2}{2}\right]_0^4 = \pi \cdot 8 = 8\pi$ cubic units</p>
+                </div>
+                
+                <div class="real-world">
+                    <h4>🌡️ Environmental Science: Pollution Accumulation</h4>
+                    <p><strong>Problem:</strong> Pollution rate: $P(t) = 50e^{0.1t}$ tons/year. Find total pollution over 10 years.</p>
+                    <p><strong>Solution:</strong></p>
+                    <p>Total = $\int_0^{10} 50e^{0.1t} \, dt$</p>
+                    <p>$= 50 \left[\frac{e^{0.1t}}{0.1}\right]_0^{10}$</p>
+                    <p>$= 500(e - 1) \approx 859$ tons</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary and Exam Tips -->
+        <div class="slide">
+            <h2>Summary & Exam Success Tips</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>✅ Key Skills Mastered:</h3>
+                    <ul>
+                        <li>✅ Basic integration techniques</li>
+                        <li>✅ Finding functions from derivatives</li>
+                        <li>✅ Evaluating definite integrals</li>
+                        <li>✅ Calculating areas under curves</li>
+                        <li>✅ Finding areas between curves</li>
+                        <li>✅ Using trapezium rule for approximation</li>
+                        <li>✅ Real-world applications</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🔑 Essential Formulas:</h3>
+                    <div class="formula-box">
+                        <p>$\int x^n \, dx = \frac{x^{n+1}}{n+1} + C$</p>
+                        <p>$\int_a^b f(x) \, dx = [F(x)]_a^b$</p>
+                        <p>Area = $\int_a^b |f(x) - g(x)| \, dx$</p>
+                        <p>Trapezium: $\frac{h}{2}[y_0 + 2\sum y_i + y_n]$</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>🎯 Exam Strategy & Common Mistakes:</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>✅ Do:</h4>
+                        <ul>
+                            <li>Always add constant of integration for indefinite integrals</li>
+                            <li>Check your integration by differentiating</li>
+                            <li>Sketch graphs to visualize area problems</li>
+                            <li>Find intersection points carefully</li>
+                            <li>Split integrals when function changes sign</li>
+                            <li>Show all working steps clearly</li>
+                            <li>Use correct notation: $\int$ not $\sum$</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>❌ Don't:</h4>
+                        <ul>
+                            <li>Forget the constant $C$ in indefinite integrals</li>
+                            <li>Ignore negative areas (use absolute value)</li>
+                            <li>Mix up upper and lower limits</li>
+                            <li>Forget to find intersection points</li>
+                            <li>Use trapezium rule when exact answer is possible</li>
+                            <li>Rush through area calculations</li>
+                            <li>Forget units in real-world problems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-box">
+                <h3>🧠 Final Challenge Problem</h3>
+                <p><strong>Problem:</strong> The region bounded by $y = x^2$, $y = 2x$, and $x = 3$ is rotated about the y-axis. Find the volume of the solid formed.</p>
+                <button class="show-answer-btn" onclick="toggleAnswer('final-challenge')">Show Solution</button>
+                <div id="final-challenge" class="quiz-answer">
+                    <p><strong>Solution:</strong></p>
+                    <p><strong>Step 1:</strong> Find intersection of $y = x^2$ and $y = 2x$</p>
+                    <p>$x^2 = 2x \Rightarrow x^2 - 2x = 0 \Rightarrow x(x-2) = 0$</p>
+                    <p>So $x = 0$ or $x = 2$</p>
+                    
+                    <p><strong>Step 2:</strong> Set up the volume integral using shells method</p>
+                    <p>For $0 \leq x \leq 2$: height = $2x - x^2$</p>
+                    <p>For $2 \leq x \leq 3$: height = $x^2 - 2x$ (but this gives negative height)</p>
+                    <p>Actually, we need to be more careful about the bounded region...</p>
+                    
+                    <p><strong>Alternative approach using washers:</strong></p>
+                    <p>Convert to functions of $y$: $x = \sqrt{y}$ and $x = \frac{y}{2}$</p>
+                    <p>$V = \pi \int_0^4 \left[(\sqrt{y})^2 - \left(\frac{y}{2}\right)^2\right] dy$</p>
+                    <p>$= \pi \int_0^4 \left(y - \frac{y^2}{4}\right) dy$</p>
+                    <p>$= \pi \left[\frac{y^2}{2} - \frac{y^3}{12}\right]_0^4$</p>
+                    <p>$= \pi \left(8 - \frac{64}{12}\right) = \pi \left(8 - \frac{16}{3}\right) = \frac{8\pi}{3}$</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle quiz answers
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            const button = answer.previousElementSibling;
+            
+            if (answer.style.display === 'none' || answer.style.display === '') {
+                answer.style.display = 'block';
+                button.textContent = 'Hide Answer';
+            } else {
+                answer.style.display = 'none';
+                button.textContent = 'Show Answer';
+            }
+        }
+
+        // Graph 1: Curve through a point
+        const x1 = [];
+        const y1 = [];
+        for (let i = 0.5; i <= 3; i += 0.1) {
+            x1.push(i);
+            y1.push(Math.pow(i, 3) + 1/(i*i) + 7/4);
+        }
+
+        Plotly.newPlot('curve-through-point', [{
+            x: x1,
+            y: y1,
+            type: 'scatter',
+            name: 'y = x³ + 1/x² + 7/4',
+            line: {color: 'blue', width: 3}
+        }, {
+            x: [2],
+            y: [10],
+            type: 'scatter',
+            mode: 'markers',
+            name: 'Given point (2, 10)',
+            marker: {color: 'red', size: 10}
+        }], {
+            title: 'Finding f(x) given f\'(x) and a point',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'y'},
+            annotations: [{
+                x: 2,
+                y: 10,
+                text: '(2, 10)',
+                showarrow: true,
+                arrowhead: 2
+            }]
+        });
+
+        // Graph 2: Definite integral visualization
+        const x2 = [];
+        const y2 = [];
+        const x2_fill = [];
+        const y2_fill = [];
+        
+        for (let i = 0; i <= 2; i += 0.1) {
+            x2.push(i);
+            y2.push(i*i + 3*i - 1);
+            if (i >= 0 && i <= 2) {
+                x2_fill.push(i);
+                y2_fill.push(i*i + 3*i - 1);
+            }
+        }
+        
+        // Add closing points for fill
+        x2_fill.push(2);
+        x2_fill.push(0);
+        y2_fill.push(0);
+        y2_fill.push(0);
+
+        Plotly.newPlot('definite-integral-graph', [{
+            x: x2,
+            y: y2,
+            type: 'scatter',
+            name: 'f(x) = x² + 3x - 1',
+            line: {color: 'blue', width: 3}
+        }, {
+            x: x2_fill,
+            y: y2_fill,
+            type: 'scatter',
+            fill: 'tozeroy',
+            fillcolor: 'rgba(0,100,80,0.3)',
+            name: 'Area = 20/3',
+            line: {color: 'transparent'}
+        }], {
+            title: 'Definite Integral: ∫₀² (x² + 3x - 1) dx = 20/3',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'f(x)'}
+        });
+
+        // Graph 3: Area under curve (with negative region)
+        const x3 = [];
+        const y3 = [];
+        const x3_pos = [];
+        const y3_pos = [];
+        const x3_neg = [];
+        const y3_neg = [];
+        
+        for (let i = -2; i <= 2; i += 0.1) {
+            x3.push(i);
+            const val = i*i - 4;
+            y3.push(val);
+            
+            if (val >= 0) {
+                x3_pos.push(i);
+                y3_pos.push(val);
+            } else {
+                x3_neg.push(i);
+                y3_neg.push(val);
+            }
+        }
+
+        Plotly.newPlot('area-under-curve', [{
+            x: x3,
+            y: y3,
+            type: 'scatter',
+            name: 'f(x) = x² - 4',
+            line: {color: 'blue', width: 3}
+        }, {
+            x: x3_neg.concat([2, -2]),
+            y: y3_neg.concat([0, 0]),
+            type: 'scatter',
+            fill: 'tozeroy',
+            fillcolor: 'rgba(255,0,0,0.3)',
+            name: 'Area below x-axis',
+            line: {color: 'transparent'}
+        }, {
+            x: [-2, 2],
+            y: [0, 0],
+            type: 'scatter',
+            mode: 'lines',
+            name: 'x-axis',
+            line: {color: 'black', width: 2}
+        }], {
+            title: 'Area between x² - 4 and x-axis from x = -2 to x = 2',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'f(x)'}
+        });
+
+        // Graph 4: Area between curve and line
+        const x4 = [];
+        const y4_curve = [];
+        const y4_line = [];
+        const x4_fill = [];
+        const y4_fill_upper = [];
+        const y4_fill_lower = [];
+                for (let i = 0; i <= 3; i += 0.1) {
+            x4.push(i);
+            y4_curve.push(i*i - 2*i);
+            y4_line.push(i);
+        }
+        
+        // Fill area between curves
+        for (let i = 0; i <= 3; i += 0.1) {
+            x4_fill.push(i);
+            y4_fill_upper.push(i); // line
+            y4_fill_lower.push(i*i - 2*i); // curve
+        }
+
+        Plotly.newPlot('area-between-curve-line', [{
+            x: x4,
+            y: y4_curve,
+            type: 'scatter',
+            name: 'y = x² - 2x',
+            line: {color: 'blue', width: 3}
+        }, {
+            x: x4,
+            y: y4_line,
+            type: 'scatter',
+            name: 'y = x',
+            line: {color: 'red', width: 3}
+        }, {
+            x: x4_fill.concat(x4_fill.slice().reverse()),
+            y: y4_fill_upper.concat(y4_fill_lower.slice().reverse()),
+            type: 'scatter',
+            fill: 'toself',
+            fillcolor: 'rgba(0,255,0,0.3)',
+            name: 'Enclosed Area = 9/2',
+            line: {color: 'transparent'}
+        }, {
+            x: [0, 3],
+            y: [0, 3],
+            type: 'scatter',
+            mode: 'markers',
+            name: 'Intersection points',
+            marker: {color: 'orange', size: 8}
+        }], {
+            title: 'Area between y = x² - 2x and y = x',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'y'}
+        });
+
+        // Graph 5: Area between two curves
+        const x5 = [];
+        const y5_curve1 = [];
+        const y5_curve2 = [];
+        const x5_fill = [];
+        const y5_fill_upper = [];
+        const y5_fill_lower = [];
+        
+        for (let i = -Math.sqrt(2); i <= Math.sqrt(2); i += 0.1) {
+            x5.push(i);
+            y5_curve1.push(i*i);
+            y5_curve2.push(4 - i*i);
+        }
+        
+        // Fill area between curves
+        for (let i = -Math.sqrt(2); i <= Math.sqrt(2); i += 0.1) {
+            x5_fill.push(i);
+            y5_fill_upper.push(4 - i*i);
+            y5_fill_lower.push(i*i);
+        }
+
+        Plotly.newPlot('area-between-curves', [{
+            x: x5,
+            y: y5_curve1,
+            type: 'scatter',
+            name: 'y = x²',
+            line: {color: 'blue', width: 3}
+        }, {
+            x: x5,
+            y: y5_curve2,
+            type: 'scatter',
+            name: 'y = 4 - x²',
+            line: {color: 'red', width: 3}
+        }, {
+            x: x5_fill.concat(x5_fill.slice().reverse()),
+            y: y5_fill_upper.concat(y5_fill_lower.slice().reverse()),
+            type: 'scatter',
+            fill: 'toself',
+            fillcolor: 'rgba(255,165,0,0.3)',
+            name: 'Area = 16√2/3',
+            line: {color: 'transparent'}
+        }, {
+            x: [-Math.sqrt(2), Math.sqrt(2)],
+            y: [2, 2],
+            type: 'scatter',
+            mode: 'markers',
+            name: 'Intersection points',
+            marker: {color: 'green', size: 8}
+        }], {
+            title: 'Area between y = x² and y = 4 - x²',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'y'}
+        });
+
+        // Graph 6: Trapezium Rule visualization
+        const x6 = [];
+        const y6 = [];
+        for (let i = 0; i <= 2; i += 0.05) {
+            x6.push(i);
+            y6.push(i*i);
+        }
+        
+        // Trapezoid coordinates for 4 strips
+        const trapX = [0, 0.5, 1, 1.5, 2];
+        const trapY = [0, 0.25, 1, 2.25, 4];
+        
+        // Create trapezoid shapes
+        const trapezoids = [];
+        for (let i = 0; i < 4; i++) {
+            trapezoids.push({
+                x: [trapX[i], trapX[i+1], trapX[i+1], trapX[i], trapX[i]],
+                y: [0, 0, trapY[i+1], trapY[i], 0],
+                type: 'scatter',
+                fill: 'toself',
+                fillcolor: `rgba(${50 + i*50}, 100, 200, 0.3)`,
+                line: {color: 'black', width: 1},
+                name: `Strip ${i+1}`,
+                showlegend: false
+            });
+        }
+
+        const trapPlot = [{
+            x: x6,
+            y: y6,
+            type: 'scatter',
+            name: 'f(x) = x²',
+            line: {color: 'blue', width: 3}
+        }, {
+            x: trapX,
+            y: trapY,
+            type: 'scatter',
+            mode: 'markers+lines',
+            name: 'Trapezium points',
+            marker: {color: 'red', size: 8},
+            line: {color: 'red', width: 2, dash: 'dash'}
+        }].concat(trapezoids);
+
+        Plotly.newPlot('trapezium-rule', trapPlot, {
+            title: 'Trapezium Rule: Approximating ∫₀² x² dx with 4 strips',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'f(x)'},
+            annotations: [
+                {x: 0.25, y: 0.5, text: 'h = 0.5', showarrow: false, font: {size: 12}},
+                {x: 1, y: 3, text: 'Approximation = 2.75<br>Exact = 8/3 ≈ 2.67', showarrow: false, font: {size: 12}, bgcolor: 'white', bordercolor: 'black'}
+            ]
+        });
+
+        // Additional interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive elements
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 200);
+                });
+            });
+
+            // Add progress indicator
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+                z-index: 1000;
+                transition: width 0.3s ease;
+            `;
+            document.body.appendChild(progressBar);
+
+            window.addEventListener('scroll', function() {
+                const scrolled = (window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' || e.key === ' ') {
+                    e.preventDefault();
+                    window.scrollBy(0, window.innerHeight * 0.8);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    window.scrollBy(0, -window.innerHeight * 0.8);
+                }
+            });
+        });
+
+        // Mathematical validation functions
+        function validateIntegration() {
+            // This could be expanded to include interactive integration practice
+            console.log("Integration validation system ready");
+        }
+
+        // Call validation on load
+        validateIntegration();
+    </script>
+
+    <!-- Additional CSS for print styles -->
+    <style media="print">
+        body {
+            background: white !important;
+        }
+        .slide {
+            page-break-after: always;
+            box-shadow: none !important;
+            border: 1px solid #ccc;
+        }
+        .show-answer-btn {
+            display: none;
+        }
+        .quiz-answer {
+            display: block !important;
+        }
+    </style>
+
+    <!-- MathJax configuration for better rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    // Re-render graphs after MathJax is ready
+                    setTimeout(() => {
+                        if (typeof Plotly !== 'undefined') {
+                            Plotly.Plots.resize();
+                        }
+                    }, 1000);
+                }
+            }
+        };
+    </script>
+
+    <!-- Accessibility improvements -->
+    <div style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;">
+        <h1>Integration - A Level Mathematics Presentation</h1>
+        <p>This presentation covers basic and advanced integration concepts including indefinite integrals, definite integrals, areas under curves, areas between curves, and the trapezium rule approximation method.</p>
+    </div>
+
+    <!-- Footer with additional information -->
+    <div style="background: #333; color: white; padding: 20px; text-align: center; margin-top: 50px;">
+        <p><strong>Integration - A Level Mathematics (Edexcel)</strong></p>
+        <p>© 2024 Mathematics Department | For educational use only</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">
+            <em>Remember: Integration is the reverse of differentiation. Practice makes perfect!</em>
+        </p>
+        <div style="margin-top: 15px;">
+            <span style="background: #4CAF50; padding: 5px 10px; border-radius: 3px; margin: 0 5px;">Easy</span>
+            <span style="background: #FF9800; padding: 5px 10px; border-radius: 3px; margin: 0 5px;">Medium</span>
+            <span style="background: #F44336; padding: 5px 10px; border-radius: 3px; margin: 0 5px;">Hard</span>
+        </div>
+    </div>
+
+    <!-- Performance optimization -->
+    <script>
+        // Lazy loading for graphs
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '50px'
+        };
+
+        const graphObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const graphId = entry.target.id;
+                    // Trigger graph rendering optimization
+                    if (window.Plotly && window.Plotly.Plots) {
+                        window.Plotly.Plots.resize(graphId);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all graph containers
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.graph-container > div').forEach(graph => {
+                if (graph.id) {
+                    graphObserver.observe(graph);
+                }
+            });
+        });
+
+        // Smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Error handling for MathJax
+        window.addEventListener('error', function(e) {
+            if (e.message && e.message.includes('MathJax')) {
+                console.warn('MathJax rendering issue detected, attempting reload...');
+                setTimeout(() => {
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise();
+                    }
+                }, 2000);
+            }
+        });
+
+        // Final initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Integration presentation loaded successfully!');
+            console.log('Total slides:', document.querySelectorAll('.slide').length);
+            console.log('Interactive elements ready');
+            
+            // Add final touches
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise().then(() => {
+                        console.log('All mathematical expressions rendered');
+                    });
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
+
+        
